@@ -84,27 +84,27 @@ class _ReportScreenState extends State<ReportScreen> {
           DateTime lastDayOfLastMonth = DateTime(now.year, now.month, 0);
           query = query
               .where('transaction_date',
-              isGreaterThanOrEqualTo: firstDayOfLastMonth)
+                  isGreaterThanOrEqualTo: firstDayOfLastMonth)
               .where('transaction_date',
-              isLessThanOrEqualTo: lastDayOfLastMonth);
+                  isLessThanOrEqualTo: lastDayOfLastMonth);
           break;
         case FilterOption.lastYear:
           DateTime firstDayOfLastYear = DateTime(now.year - 1, 1, 1);
           DateTime lastDayOfLastYear = DateTime(now.year - 1, 12, 31);
           query = query
               .where('transaction_date',
-              isGreaterThanOrEqualTo: firstDayOfLastYear)
+                  isGreaterThanOrEqualTo: firstDayOfLastYear)
               .where('transaction_date',
-              isLessThanOrEqualTo: lastDayOfLastYear);
+                  isLessThanOrEqualTo: lastDayOfLastYear);
           break;
         case FilterOption.thisMonth:
           DateTime firstDayOfThisMonth = DateTime(now.year, now.month, 1);
           DateTime lastDayOfThisMonth = DateTime(now.year, now.month + 1, 0);
           query = query
               .where('transaction_date',
-              isGreaterThanOrEqualTo: firstDayOfThisMonth)
+                  isGreaterThanOrEqualTo: firstDayOfThisMonth)
               .where('transaction_date',
-              isLessThanOrEqualTo: lastDayOfThisMonth);
+                  isLessThanOrEqualTo: lastDayOfThisMonth);
           break;
         case FilterOption.thisYear:
           DateTime firstDayOfThisYear = DateTime(now.year, 1, 1);
@@ -113,7 +113,7 @@ class _ReportScreenState extends State<ReportScreen> {
           break;
         case FilterOption.lastWeek:
           DateTime lastWeekStart =
-          now.subtract(Duration(days: now.weekday + 6));
+              now.subtract(Duration(days: now.weekday + 6));
           DateTime lastWeekEnd = now.subtract(Duration(days: now.weekday));
           query = query
               .where('transaction_date', isGreaterThanOrEqualTo: lastWeekStart)
@@ -125,7 +125,7 @@ class _ReportScreenState extends State<ReportScreen> {
               isGreaterThanOrEqualTo: last7DaysStart);
           break;
         case FilterOption.all:
-        // No additional filter for 'All'
+          // No additional filter for 'All'
           break;
       }
 
@@ -171,7 +171,15 @@ class _ReportScreenState extends State<ReportScreen> {
       // Initialize totals for categories per day
       Map<String, double> debitTotals = {};
       Map<String, double> creditTotals = {};
-      List<String> dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      List<String> dayLabels = [
+        'Sun',
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat'
+      ];
 
       // Initialize the map for each day (Sunday to Saturday)
       for (var day in dayLabels) {
@@ -181,7 +189,8 @@ class _ReportScreenState extends State<ReportScreen> {
 
       for (var doc in querySnapshot.docs) {
         final data = doc.data() as Map<String, dynamic>;
-        final transactionDate = (data['transaction_date'] as Timestamp).toDate();
+        final transactionDate =
+            (data['transaction_date'] as Timestamp).toDate();
         final type = data['type'] as String;
         final amount = data['amount'] as double;
 
@@ -348,15 +357,14 @@ class _ReportScreenState extends State<ReportScreen> {
                               padding: const EdgeInsets.only(bottom: 12.0),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     entry.key,
                                     style: GoogleFonts.inter(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
-                                        color: Colors.black87
-                                    ),
+                                        color: Colors.black87),
                                   ),
                                   Text(
                                     formatter.format(entry.value),
@@ -378,8 +386,8 @@ class _ReportScreenState extends State<ReportScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 12.0, horizontal: 16.0),
                             decoration: BoxDecoration(
-                              color: Colors
-                                  .red.shade50, // Light green background
+                              color:
+                                  Colors.red.shade50, // Light green background
                               borderRadius: BorderRadius.circular(8),
                               boxShadow: [
                                 BoxShadow(
@@ -397,8 +405,7 @@ class _ReportScreenState extends State<ReportScreen> {
                                   style: GoogleFonts.inter(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.red
-                                  ),
+                                      color: Colors.red),
                                 ),
                                 Text(
                                   formatter.format(debitSum),
@@ -423,7 +430,7 @@ class _ReportScreenState extends State<ReportScreen> {
                               padding: const EdgeInsets.only(bottom: 12.0),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     entry.key,
@@ -454,7 +461,7 @@ class _ReportScreenState extends State<ReportScreen> {
                                 vertical: 12.0, horizontal: 16.0),
                             decoration: BoxDecoration(
                               color:
-                              Colors.green.shade50, // Light blue background
+                                  Colors.green.shade50, // Light blue background
                               borderRadius: BorderRadius.circular(8),
                               boxShadow: [
                                 BoxShadow(
@@ -519,14 +526,14 @@ class _ReportScreenState extends State<ReportScreen> {
                       x: _getDayIndex(day),
                       barRods: [
                         BarChartRodData(
-                          fromY: 0,  // Starting point
-                          toY: debitTotals[day]!,  // Debit value
+                          fromY: 0, // Starting point
+                          toY: debitTotals[day]!, // Debit value
                           color: Colors.red,
                           width: 16,
                         ),
                         BarChartRodData(
-                          fromY: 0,  // Starting point
-                          toY: creditTotals[day]!,  // Credit value
+                          fromY: 0, // Starting point
+                          toY: creditTotals[day]!, // Credit value
                           color: Colors.green,
                           width: 16,
                         ),
@@ -546,12 +553,14 @@ class _ReportScreenState extends State<ReportScreen> {
                               // Configure the left titles (Y-axis)
                               leftTitles: AxisTitles(
                                 sideTitles: SideTitles(
-                                  showTitles: true,  // Show titles on the left
+                                  showTitles: true, // Show titles on the left
                                   reservedSize: 32,
                                   getTitlesWidget: (value, meta) {
                                     return Text(
-                                      value.toStringAsFixed(0),  // Display Y-axis value
-                                      style: TextStyle(fontSize: 10, color: Colors.black),
+                                      value.toStringAsFixed(
+                                          0), // Display Y-axis value
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.black),
                                     );
                                   },
                                 ),
@@ -559,20 +568,25 @@ class _ReportScreenState extends State<ReportScreen> {
                               // Configure the bottom titles (X-axis)
                               bottomTitles: AxisTitles(
                                 sideTitles: SideTitles(
-                                  showTitles: true,  // Show titles on the bottom
+                                  showTitles: true, // Show titles on the bottom
                                   getTitlesWidget: (value, meta) {
                                     return Text(
-                                      _getDayName(value.toInt()),  // Display day name
-                                      style: TextStyle(fontSize: 10, color: Colors.black),
+                                      _getDayName(
+                                          value.toInt()), // Display day name
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.black),
                                     );
                                   },
                                 ),
                               ),
                               // Hide top and right titles
-                              topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                              rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                              topTitles: AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false)),
+                              rightTitles: AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false)),
                             ),
-                            gridData: FlGridData(show: true, drawVerticalLine: true),
+                            gridData:
+                                FlGridData(show: true, drawVerticalLine: true),
                             alignment: BarChartAlignment.spaceAround,
                           ),
                         ),

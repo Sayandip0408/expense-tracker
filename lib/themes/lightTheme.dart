@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
     useMaterial3: true,
+    primaryColor: Color.fromRGBO(219, 237, 231, 1),
     colorScheme: const ColorScheme.light(
       surface: Colors.white,
       primary: Colors.black,

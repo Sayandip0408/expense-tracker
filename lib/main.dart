@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:expense_tracker/screens/HomeScreen.dart';
+import 'package:expense_tracker/screens/LandingScreen.dart';
 import 'package:expense_tracker/screens/LoginScreen.dart';
 import 'package:expense_tracker/themes/lightTheme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final user = _auth.currentUser;
     if(user != null){
       Timer(const Duration(milliseconds: 500),
-              ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomeScreen())));
+              ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const LandingScreen())));
     }
     else{
       Timer(const Duration(milliseconds: 500),
