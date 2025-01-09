@@ -1,3 +1,4 @@
+import 'package:expense_tracker/screens/LandingScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Text(
               "Sign in to your Account",
               style:
-                  GoogleFonts.inter(fontSize: 35, fontWeight: FontWeight.w700),
+              GoogleFonts.inter(fontSize: 35, fontWeight: FontWeight.w700),
             ),
             SizedBox(height: 20,),
             Text(
@@ -146,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()));
+                          builder: (context) => const LandingScreen()));
                 } catch (e) {
                   debugPrint(e.toString());
                   ScaffoldMessenger.of(context).showSnackBar(
